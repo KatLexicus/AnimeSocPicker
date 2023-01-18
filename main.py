@@ -1,7 +1,9 @@
 import random
 
-# import mal
+from mal import Anime
 import pandas as pd
+import re
+
 # from mal import *
 
 with open('suggestions.csv', 'r', encoding="utf-8") as csvfile:
@@ -10,17 +12,14 @@ with open('suggestions.csv', 'r', encoding="utf-8") as csvfile:
     print('Incumbent Anime is Megalo box ' + '\n' +
           'Thursday Session Anime Suggestions:' + '\n' 'Ran by @Lexi.f'
           + '\n \n' + 'These are the choices for Thursday this week: ')
-    fileinput.pop("Suggested by:")
-    fileinput = fileinput.to_string().splitlines()
-#
-# for line in input:
-#     lineOut = AnimeSearch(line).results[0]
-#     print(line + " " + lineOut.title + " " + lineOut.url)
+
+for line in fileinput:
+    lineOut = AnimeSearch(line).results[0]
+    print(line + " " + lineOut.title + " " + lineOut.url)
 
 
-for i in range(8):
-    randomLine = random.choice(fileinput)
-    print(randomLine)
-
-print('\n' + "One alternate suggestion can be entered into the Anime Suggestions forum with it being "
-          "voted on in the same way but this has to be done with discord for fairness :nerd:")
+fileinput = fileinput.to_string(index=False, justify="left").splitlines()
+for line in range(8):
+    line = random.choice(fileinput)
+    line = re.sub(' +', ' ', line)
+    print(line)
